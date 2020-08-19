@@ -22,8 +22,9 @@
   </properties>
 
   <modules>
-    <module>cli</module>
     <module>bom</module>
+    <module>common</module>
+    <module>cli</module>
   </modules>
 
   <build>

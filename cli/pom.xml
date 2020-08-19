@@ -28,6 +28,12 @@
 
     <dependencies>
 
+        <dependency>
+            <groupId>com.rpn.calculator</groupId>
+            <artifactId>rpn-9000-common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
         <!-- logging -->
         <dependency>
             <groupId>org.slf4j</groupId>
