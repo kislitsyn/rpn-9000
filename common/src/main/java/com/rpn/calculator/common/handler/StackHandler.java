@@ -1,11 +1,10 @@
 package com.rpn.calculator.common.handler;
 
-import com.rpn.calculator.common.exception.UnsupportedParametersException;
 import com.rpn.calculator.common.StackElement;
 import com.rpn.calculator.common.exception.InsufficientParametersException;
+import com.rpn.calculator.common.exception.UnsupportedOperationException;
 import com.rpn.calculator.common.operation.Operation;
 
-import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Deque;
 import java.util.LinkedList;
@@ -26,7 +25,7 @@ public class StackHandler {
 
         for (String input : inputElements) {
 
-            var inputElement = convertToStackElement(input);
+            var inputElement = StackElement.fromValue(input);
 
             try {
                 result = push(result, inputElement);
@@ -34,9 +33,13 @@ public class StackHandler {
                 int position = getLastOperatorPosition(processedInputElements);
                 var error = String.format("operator '%s' (position: %d): insufficient parameters", inputElement, position);
                 return Result.error(result, error);
-            } catch (UnsupportedParametersException e) {
+            } catch (UnsupportedOperationException e) {
                 int position = getLastOperatorPosition(processedInputElements);
                 var error = String.format("operator '%s' (position: %d): is not supported", inputElement, position);
+                return Result.error(result, error);
+            }  catch (IllegalArgumentException e) {
+                int position = getLastOperatorPosition(processedInputElements);
+                var error = String.format("operator '%s' (position: %d): illegal parameters", inputElement, position);
                 return Result.error(result, error);
             }
 
@@ -46,29 +49,21 @@ public class StackHandler {
         return Result.of(result);
     }
 
-    private StackElement convertToStackElement(String stringElement) {
-
-        try {
-            return new StackElement(new BigDecimal(stringElement));
-        } catch (NumberFormatException e) {
-            return new StackElement(stringElement);
-        }
-    }
-
-    private Deque<StackElement> push(Deque<StackElement> stack, StackElement element) throws UnsupportedParametersException, InsufficientParametersException {
+    private Deque<StackElement> push(Deque<StackElement> stack, StackElement element) throws UnsupportedOperationException, InsufficientParametersException {
         if (element.getNumber().isPresent()) {
             var currentStack = new LinkedList<>(stack);
             currentStack.addFirst(new StackElement(element.getNumber().get(), stack));
             return currentStack;
         }
 
-        return Operation.getOperationHandler(element.getElement()).process(stack);
+        return Operation.getOperationHandler(element.getOperator()).process(stack);
     }
 
     private static int getLastOperatorPosition(Collection<String> inputItems) {
         return inputItems.stream()
                 .mapToInt(String::length)
                 .map(operatorLength -> operatorLength + DELIMITER.length())
-                .sum();
+                // position numbers start from '1'
+                .sum() + 1;
     }
 }

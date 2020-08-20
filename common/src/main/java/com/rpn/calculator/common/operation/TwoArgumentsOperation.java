@@ -30,10 +30,10 @@ public abstract class TwoArgumentsOperation implements OperationHandler {
             throw new InsufficientParametersException("Stack is empty");
         }
 
-        var secondElement = stack.peekFirst();
+        var element = stack.getFirst();
 
-        if (stack.peekFirst().getNumber().isEmpty()) {
-            throw new InsufficientParametersException("Parameter is not valid for operation MULTIPLICATION: " + secondElement);
+        if (element.getNumber().isEmpty()) {
+            throw new InsufficientParametersException("Parameter is not valid for operation MULTIPLICATION: " + element);
         }
 
         return stack.removeFirst();

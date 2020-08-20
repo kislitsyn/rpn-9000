@@ -1,6 +1,6 @@
 package com.rpn.calculator.common.operation;
 
-import com.rpn.calculator.common.exception.UnsupportedParametersException;
+import com.rpn.calculator.common.exception.UnsupportedOperationException;
 
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
@@ -29,11 +29,15 @@ public enum Operation {
         this.handler = handler;
     }
 
-    public static OperationHandler getOperationHandler(String element) throws UnsupportedParametersException {
+    public OperationHandler getHandler() {
+        return handler;
+    }
+
+    public static OperationHandler getOperationHandler(String element) throws UnsupportedOperationException {
         return Stream.of(Operation.values())
                 .filter(operation -> operation.pattern.matcher(element).matches())
                 .findFirst()
-                .orElseThrow(() -> new UnsupportedParametersException("Operation is not supported"))
+                .orElseThrow(() -> new UnsupportedOperationException("Operation is not supported: " + element))
                 .handler;
     }
 }
