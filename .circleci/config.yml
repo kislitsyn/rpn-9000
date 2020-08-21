@@ -15,12 +15,12 @@ jobs:
       - run:
           name: Copy test results
           command: |
-            mkdir -p ~/test-results/
-            find . -type f -regex ".*/target/surefire-reports/.*" -exec cp {} ~/test-results/ \;
+            mkdir -p ~/test-results/junit/
+            find . -type f -regex ".*/target/surefire-reports/.*" -exec cp {} ~/test-results/junit/ \;
           when: always
 
       - store_test_results:
-          path: ~/test-results
+          path: ~/test-results/junit
 
       - run:
           name: Copy artifacts
@@ -31,3 +31,13 @@ jobs:
 
       - store_artifacts:
           path: ~/artifacts
+
+      - run:
+          name: Copy code coverage reports
+          command: |
+            mkdir -p ~/test-results/jacoco/
+            find . -mindepth 1 -maxdepth 1 -type d -execdir cp -R {}/target/site/jacoco/ ~/test-results/jacoco/{} \;
+          when: always
+
+      - store_artifacts:
+          path: ~/test-results/jacoco
