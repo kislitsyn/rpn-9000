@@ -15,7 +15,7 @@ Project uses Maven to build command line application
 ```
 Code coverage reports available in target folders:
 - cli module report: `cli/target/site/jacoco/index.html`
-- common module report: `http://cli/target/site/jacoco/index.html`
+- common module report: `cli/target/site/jacoco/index.html`
 
 Use this command to run the application
 ```bash
