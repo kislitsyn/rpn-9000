@@ -1,7 +1,7 @@
 # RPN 9000
 Reverse Polish Notation mode calculator 
 
-[![CI](https://circleci.com/gh/kislitsyn/rpn-9000.svg?style=shield&circle-token=:circle-token))](https://circleci.com/gh/kislitsyn/rpn-9000)
+[![CI](https://circleci.com/gh/kislitsyn/rpn-9000.svg?style=shield&circle-token=:circle-token)](https://circleci.com/gh/kislitsyn/rpn-9000)
 
 Contacts
 ---------------
