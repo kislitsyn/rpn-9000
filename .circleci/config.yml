@@ -1,0 +1,33 @@
+version: 2.1
+
+jobs:
+  build:
+    docker:
+      - image: circleci/openjdk:11
+    steps:
+
+      - checkout
+
+      - run:
+          name: Build & Package
+          command: ./mvnw package -Drevision=$CIRCLE_SHA1
+
+      - run:
+          name: Copy test results
+          command: |
+            mkdir -p ~/test-results/
+            find . -type f -regex ".*/target/surefire-reports/.*" -exec cp {} ~/test-results/ \;
+          when: always
+
+      - store_test_results:
+          path: ~/test-results
+
+      - run:
+          name: Copy artifacts
+          command: |
+            mkdir -p ~/artifacts/
+            cp cli/target/rpn-9000-cli-$CIRCLE_SHA1.jar ~/artifacts/
+          when: always
+
+      - store_artifacts:
+          path: ~/artifacts
