@@ -54,14 +54,14 @@ class StackElementTest {
 
     @ParameterizedTest
     @MethodSource("StackElement_FormatNumber")
-    void StackElement_FormatNumber(BigDecimal number, String formatedValue) {
+    void StackElement_FormatNumber(BigDecimal number, String value) {
         //GIVEN
         var element = StackElement.fromValue(number.toPlainString());
 
         //WHEN + THEN
         SoftAssertions.assertSoftly(softly -> {
             softly.assertThat(element.getNumber()).hasValue(number);
-            softly.assertThat(element.toString()).isEqualTo(formatedValue);
+            softly.assertThat(element.toString()).isEqualTo(value);
         });
     }
 

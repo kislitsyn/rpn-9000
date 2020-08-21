@@ -30,7 +30,8 @@ class StackHandlerTest {
                 Arguments.of(build("42"), "4 /", build("10.5")),
                 Arguments.of(build("1 2 3 4 5"), "*", build("1 2 3 20")),
                 Arguments.of(build("1 2 3 20"), "clear 3 4 -", build("-1")),
-                Arguments.of(build("1 2 3 4 5"), "* * * *", build("120"))
+                Arguments.of(build("1 2 3 4 5"), "* * * *", build("120")),
+                Arguments.of(build("1 2 3 4"), "* * /", build("0.04166666666666667"))
         );
     }
 

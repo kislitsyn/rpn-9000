@@ -2,7 +2,6 @@ package com.rpn.calculator.common.operation;
 
 import com.rpn.calculator.common.StackElement;
 import com.rpn.calculator.common.exception.InsufficientParametersException;
-import com.rpn.calculator.common.exception.UnsupportedOperationException;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -18,7 +17,7 @@ public class SqrtOperation implements OperationHandler {
 
         StackElement element;
         try {
-            element = currentStack.getFirst();
+            element = currentStack.removeFirst();
         } catch (NoSuchElementException e) {
             throw new InsufficientParametersException("Stack is empty");
         }
@@ -32,8 +31,6 @@ public class SqrtOperation implements OperationHandler {
         }
 
         var parameter = element.getNumber().get();
-
-        currentStack.removeFirst();
 
         var result = parameter.sqrt(MathContext.DECIMAL64);
 

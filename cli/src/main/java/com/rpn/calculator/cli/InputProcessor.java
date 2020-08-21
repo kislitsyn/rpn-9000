@@ -2,12 +2,16 @@ package com.rpn.calculator.cli;
 
 import com.rpn.calculator.common.StackStorage;
 import com.rpn.calculator.common.handler.StackHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Scanner;
 
 import static java.util.Objects.requireNonNull;
 
 public class InputProcessor {
+
+    private static final Logger log = LoggerFactory.getLogger(InputProcessor.class);
 
     private final StackStorage storage;
 
@@ -32,10 +36,14 @@ public class InputProcessor {
 
                 var stack = storage.get();
 
-                var result = stackHandler.process(stack, line);
+                try {
+                    var result = stackHandler.process(stack, line);
 
-                if (resultProcessor.process(result)) {
-                    storage.set(result.getResult());
+                    if (resultProcessor.process(result)) {
+                        storage.set(result.getResult());
+                    }
+                } catch (Exception e) {
+                    log.error("Failed to process input: {}", line, e);
                 }
             }
         }

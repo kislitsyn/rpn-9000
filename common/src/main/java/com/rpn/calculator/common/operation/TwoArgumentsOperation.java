@@ -18,25 +18,25 @@ public abstract class TwoArgumentsOperation implements OperationHandler {
 
         var firstParameter = getNextParameter(currentStack);
 
-        var result = process(firstParameter.getNumber().get(), secondParameter.getNumber().get());
+        var result = process(firstParameter, secondParameter);
 
         currentStack.addFirst(new StackElement(result, stack));
 
         return currentStack;
     }
 
-    private StackElement getNextParameter(Deque<StackElement> stack) throws InsufficientParametersException {
+    private BigDecimal getNextParameter(Deque<StackElement> stack) throws InsufficientParametersException {
         if (stack.isEmpty()) {
             throw new InsufficientParametersException("Stack is empty");
         }
 
-        var element = stack.getFirst();
+        var element = stack.removeFirst();
 
         if (element.getNumber().isEmpty()) {
             throw new InsufficientParametersException("Parameter is not valid for operation MULTIPLICATION: " + element);
         }
 
-        return stack.removeFirst();
+        return element.getNumber().get();
     }
 
     protected abstract BigDecimal process(BigDecimal firstParameter, BigDecimal secondParameter);
