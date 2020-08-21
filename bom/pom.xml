@@ -14,6 +14,15 @@
     <artifactId>rpn-9000-bom</artifactId>
     <packaging>pom</packaging>
 
+    <name>RPN BOM</name>
+    <description>Bill of Materials for consistent versions of dependencies</description>
+
+    <scm>
+        <url>https://github.com/kislitsyn/rpn-9000</url>
+        <connection>scm:git:ssh://git@github.com:kislitsyn/rpn-9000.git</connection>
+        <tag>HEAD</tag>
+    </scm>
+
     <properties>
         <slf4j.version>1.7.30</slf4j.version>
         <junit.version>5.6.2</junit.version>

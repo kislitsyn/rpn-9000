@@ -14,6 +14,9 @@
     <artifactId>rpn-9000-cli</artifactId>
     <packaging>jar</packaging>
 
+    <name>RPN CLI</name>
+    <description>Command line interface application</description>
+
     <dependencyManagement>
         <dependencies>
             <dependency>

@@ -9,6 +9,9 @@
   <version>${revision}</version>
   <packaging>pom</packaging>
 
+  <name>RPN 9000</name>
+  <description>Reverse Polish Notation calculator</description>
+
   <properties>
     <revision>1.0.0-SNAPSHOT</revision>
     <compiler-plugin.version>3.8.1</compiler-plugin.version>

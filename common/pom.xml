@@ -13,6 +13,9 @@
     <groupId>com.rpn.calculator</groupId>
     <artifactId>rpn-9000-common</artifactId>
 
+    <name>RPN Common</name>
+    <description>Main functionality module</description>
+
     <dependencyManagement>
         <dependencies>
             <dependency>
