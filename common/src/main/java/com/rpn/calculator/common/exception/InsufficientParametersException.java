@@ -1,8 +1,8 @@
 package com.rpn.calculator.common.exception;
 
-public class InsufficientParametersException extends Exception {
+public class InsufficientParametersException extends StackProcessorException {
 
-    public InsufficientParametersException(String message) {
-        super(message);
+    public InsufficientParametersException() {
+        super("insufficient parameters");
     }
 }

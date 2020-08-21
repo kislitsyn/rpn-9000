@@ -1,9 +1,9 @@
 package com.rpn.calculator.common.exception;
 
-public class UnsupportedOperationException extends RuntimeException {
+public class UnsupportedOperationException extends StackProcessorException {
 
-    public UnsupportedOperationException(String message) {
-        super(message);
+    public UnsupportedOperationException() {
+        super("is not supported");
     }
 
 }

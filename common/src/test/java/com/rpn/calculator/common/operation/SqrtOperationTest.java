@@ -1,7 +1,9 @@
 package com.rpn.calculator.common.operation;
 
 import com.rpn.calculator.common.StackElement;
+import com.rpn.calculator.common.exception.IllegalParametersException;
 import com.rpn.calculator.common.exception.InsufficientParametersException;
+import com.rpn.calculator.common.exception.StackProcessorException;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,7 +24,7 @@ class SqrtOperationTest {
     }
 
     @Test
-    void Sqrt_ShouldCalculate_WhenStackContainsNumber() throws InsufficientParametersException {
+    void Sqrt_ShouldCalculate_WhenStackContainsNumber() throws StackProcessorException {
         //GIVEN
         Deque<StackElement> stack = new LinkedList<>();
         stack.addFirst(StackElement.fromValue("4"));
@@ -40,7 +42,7 @@ class SqrtOperationTest {
     }
 
     @Test
-    void Sqrt_ShouldCalculateOnlyFirstElement_WhenStackContainsNumbers() throws InsufficientParametersException {
+    void Sqrt_ShouldCalculateOnlyFirstElement_WhenStackContainsNumbers() throws StackProcessorException {
         //GIVEN
         Deque<StackElement> stack = new LinkedList<>();
         stack.addFirst(StackElement.fromValue("3"));
@@ -66,7 +68,7 @@ class SqrtOperationTest {
 
         //WHEN + THEN
         assertThatThrownBy(() -> operation.process(stack))
-                .isInstanceOf(IllegalArgumentException.class);
+                .isInstanceOf(IllegalParametersException.class);
     }
 
     @Test
@@ -93,7 +95,7 @@ class SqrtOperationTest {
     }
 
     @Test
-    void Sqrt_ShouldStoreOriginalStack_WhenOperationIsSuccessful() throws InsufficientParametersException {
+    void Sqrt_ShouldStoreOriginalStack_WhenOperationIsSuccessful() throws StackProcessorException {
         //GIVEN
         Deque<StackElement> stack = new LinkedList<>();
         stack.addFirst(StackElement.fromValue("5"));

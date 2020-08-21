@@ -2,6 +2,7 @@ package com.rpn.calculator.common.operation;
 
 import com.rpn.calculator.common.StackElement;
 import com.rpn.calculator.common.exception.InsufficientParametersException;
+import com.rpn.calculator.common.exception.StackProcessorException;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -62,7 +63,7 @@ class TwoArgumentsOperationTest {
 
     @ParameterizedTest
     @MethodSource("twoArgumentsOperations")
-    void TwoArgumentOperation_ShouldStoreOriginalStack_WhenOperationIsSuccessful(Operation operationType) throws InsufficientParametersException {
+    void TwoArgumentOperation_ShouldStoreOriginalStack_WhenOperationIsSuccessful(Operation operationType) throws StackProcessorException {
         //GIVEN
         Deque<StackElement> stack = new LinkedList<>();
         stack.addFirst(StackElement.fromValue("1"));

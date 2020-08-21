@@ -1,7 +1,9 @@
 package com.rpn.calculator.common.operation;
 
 import com.rpn.calculator.common.StackElement;
+import com.rpn.calculator.common.exception.IllegalParametersException;
 import com.rpn.calculator.common.exception.InsufficientParametersException;
+import com.rpn.calculator.common.exception.StackProcessorException;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -11,7 +13,7 @@ import java.util.NoSuchElementException;
 
 public class SqrtOperation implements OperationHandler {
     @Override
-    public Deque<StackElement> process(Deque<StackElement> stack) throws InsufficientParametersException {
+    public Deque<StackElement> process(Deque<StackElement> stack) throws StackProcessorException {
 
         var currentStack = new LinkedList<>(stack);
 
@@ -19,15 +21,15 @@ public class SqrtOperation implements OperationHandler {
         try {
             element = currentStack.removeFirst();
         } catch (NoSuchElementException e) {
-            throw new InsufficientParametersException("Stack is empty");
+            throw new InsufficientParametersException();
         }
 
         if (element.getNumber().isEmpty()) {
-            throw new InsufficientParametersException("Parameter is not valid for operation SQRT: " + element);
+            throw new InsufficientParametersException();
         }
 
         if (element.getNumber().get().compareTo(BigDecimal.ZERO) < 0) {
-            throw new IllegalArgumentException("Parameter is not valid for operation SQRT: " + element);
+            throw new IllegalParametersException();
         }
 
         var parameter = element.getNumber().get();

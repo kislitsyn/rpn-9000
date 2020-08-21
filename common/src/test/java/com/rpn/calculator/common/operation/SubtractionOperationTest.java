@@ -1,7 +1,7 @@
 package com.rpn.calculator.common.operation;
 
 import com.rpn.calculator.common.StackElement;
-import com.rpn.calculator.common.exception.InsufficientParametersException;
+import com.rpn.calculator.common.exception.StackProcessorException;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,7 +20,7 @@ class SubtractionOperationTest {
     }
 
     @Test
-    void Subtract_ShouldCalculate_WhenStackContainsNumbers() throws InsufficientParametersException {
+    void Subtract_ShouldCalculate_WhenStackContainsNumbers() throws StackProcessorException {
         //GIVEN
         Deque<StackElement> stack = new LinkedList<>();
         stack.addFirst(StackElement.fromValue("3"));

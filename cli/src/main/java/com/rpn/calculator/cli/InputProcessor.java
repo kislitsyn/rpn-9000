@@ -1,7 +1,7 @@
 package com.rpn.calculator.cli;
 
 import com.rpn.calculator.common.StackStorage;
-import com.rpn.calculator.common.handler.StackHandler;
+import com.rpn.calculator.common.processor.StackProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,16 +15,16 @@ public class InputProcessor {
 
     private final StackStorage storage;
 
-    private final StackHandler stackHandler;
+    private final StackProcessor stackProcessor;
 
-    private final ResultProcessor resultProcessor;
+    private final ResultPrinter resultPrinter;
 
     public InputProcessor(StackStorage storage,
-                          StackHandler stackHandler,
-                          ResultProcessor resultProcessor) {
+                          StackProcessor stackProcessor,
+                          ResultPrinter resultPrinter) {
         this.storage = requireNonNull(storage, "storage");
-        this.stackHandler = requireNonNull(stackHandler, "stackHandler");
-        this.resultProcessor = requireNonNull(resultProcessor, "resultProcessor");
+        this.stackProcessor = requireNonNull(stackProcessor, "stackProcessor");
+        this.resultPrinter = requireNonNull(resultPrinter, "resultPrinter");
     }
 
     public void start() {
@@ -37,9 +37,9 @@ public class InputProcessor {
                 var stack = storage.get();
 
                 try {
-                    var result = stackHandler.process(stack, line);
+                    var result = stackProcessor.process(stack, line);
 
-                    if (resultProcessor.process(result)) {
+                    if (resultPrinter.print(result)) {
                         storage.set(result.getResult());
                     }
                 } catch (Exception e) {

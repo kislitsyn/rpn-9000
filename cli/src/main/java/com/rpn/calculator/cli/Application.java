@@ -1,7 +1,7 @@
 package com.rpn.calculator.cli;
 
 import com.rpn.calculator.common.StackStorage;
-import com.rpn.calculator.common.handler.StackHandler;
+import com.rpn.calculator.common.processor.StackProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,11 +14,11 @@ public class Application {
 
         var storage = new StackStorage();
 
-        var stackHandler = new StackHandler();
+        var processor = new StackProcessor();
 
-        var resultProcessor = new ResultProcessor();
+        var printer = new ResultPrinter();
 
-        var inputHandler = new InputProcessor(storage, stackHandler, resultProcessor);
+        var inputHandler = new InputProcessor(storage, processor, printer);
 
         inputHandler.start();
     }

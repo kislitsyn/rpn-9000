@@ -37,7 +37,7 @@ public enum Operation {
         return Stream.of(Operation.values())
                 .filter(operation -> operation.pattern.matcher(element).matches())
                 .findFirst()
-                .orElseThrow(() -> new UnsupportedOperationException("Operation is not supported: " + element))
+                .orElseThrow(UnsupportedOperationException::new)
                 .handler;
     }
 }

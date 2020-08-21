@@ -1,4 +1,4 @@
-package com.rpn.calculator.common.handler;
+package com.rpn.calculator.common.processor;
 
 import com.rpn.calculator.common.StackElement;
 import org.assertj.core.api.SoftAssertions;
@@ -14,7 +14,7 @@ import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class StackHandlerTest {
+class StackProcessorTest {
 
     static Stream<Arguments> validStacksWithResults() {
         return Stream.of(
@@ -37,12 +37,12 @@ class StackHandlerTest {
 
     @ParameterizedTest
     @MethodSource("validStacksWithResults")
-    void StackHandler_ShouldCorrectlyCalculateStack_ForValidStack(Deque<StackElement> stack, String inputString, Deque<StackElement> expectedStack) {
+    void StackProcessor_ShouldCorrectlyCalculateStack_ForValidStack(Deque<StackElement> stack, String inputString, Deque<StackElement> expectedStack) {
         //GIVEN
-        var handler = new StackHandler();
+        var processor = new StackProcessor();
 
         //WHEN
-        var actualResult = handler.process(stack, inputString);
+        var actualResult = processor.process(stack, inputString);
 
         //THEN
         SoftAssertions.assertSoftly(softly -> {
@@ -63,14 +63,14 @@ class StackHandlerTest {
 
     @ParameterizedTest
     @MethodSource("validInputsWithResults")
-    void StackHandler_ShouldCorrectlyCalculateStack_ForSetOfInputs(List<String> inputStrings, Deque<StackElement> expectedStack) {
+    void StackProcessor_ShouldCorrectlyCalculateStack_ForSetOfInputs(List<String> inputStrings, Deque<StackElement> expectedStack) {
         //GIVEN
-        var handler = new StackHandler();
+        var processor = new StackProcessor();
 
         //WHEN
         Deque<StackElement> resultStack = new LinkedList<>();
         for (String inputString : inputStrings) {
-            var result = handler.process(resultStack, inputString);
+            var result = processor.process(resultStack, inputString);
             resultStack = result.getResult();
             if (result.getError().isPresent()) {
                 break;
@@ -91,15 +91,15 @@ class StackHandlerTest {
 
     @ParameterizedTest
     @MethodSource("notValidInputsWithResults")
-    void StackHandler_ShouldCorrectlyCalculateStack_ForSetOfInputs(List<String> inputStrings, Deque<StackElement> expectedStack, String errorMessage) {
+    void StackProcessor_ShouldCorrectlyCalculateStack_ForSetOfInputs(List<String> inputStrings, Deque<StackElement> expectedStack, String errorMessage) {
         //GIVEN
-        var handler = new StackHandler();
+        var processor = new StackProcessor();
 
         //WHEN
         String actualError = "";
         Deque<StackElement> resultStack = new LinkedList<>();
         for (String inputString : inputStrings) {
-            var result = handler.process(resultStack, inputString);
+            var result = processor.process(resultStack, inputString);
             resultStack = result.getResult();
             if (result.getError().isPresent()) {
                 actualError = result.getError().get();

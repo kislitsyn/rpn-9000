@@ -1,4 +1,4 @@
-package com.rpn.calculator.common.handler;
+package com.rpn.calculator.common.processor;
 
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.Test;

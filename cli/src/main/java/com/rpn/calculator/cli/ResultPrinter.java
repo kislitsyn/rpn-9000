@@ -1,14 +1,16 @@
 package com.rpn.calculator.cli;
 
-import com.rpn.calculator.common.handler.Result;
 import com.rpn.calculator.common.StackElement;
+import com.rpn.calculator.common.processor.Result;
 
 import java.util.Deque;
 
-public class ResultProcessor {
+import static java.util.Objects.requireNonNull;
 
-    public boolean process(Result<Deque<StackElement>, String> result) {
+public class ResultPrinter {
 
+    public boolean print(Result<Deque<StackElement>, String> result) {
+        requireNonNull(result, "result");
         if (result.getError().isPresent()) {
             System.out.println(result.getError().get());
             printResult(result.getResult());
